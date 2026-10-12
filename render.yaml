@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: poker-server
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node src/index.js"
+    healthCheckPath: "/"
+    autoDeploy: true

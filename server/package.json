@@ -1,0 +1,22 @@
+{
+  "name": "poker-server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Texas Hold'em multiplayer game server (Socket.IO)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test",
+    "verify": "node scripts/verify.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.7.5"
+  }
+}
