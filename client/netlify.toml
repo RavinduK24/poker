@@ -2,6 +2,12 @@
   command = "npm run build"
   publish = "dist"
 
+# VITE_SERVER_URL is the public address of the game server. Browsers must know it
+# to connect, so Vite intentionally inlines it into the bundle. It is not a secret,
+# so tell Netlify's secrets scanner to ignore this key.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "VITE_SERVER_URL"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
