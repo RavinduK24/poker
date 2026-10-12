@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import { evaluate5, evaluate7, compareHands, handName } from '../src/handEval.js';
 import { Table } from '../src/table.js';
+import { createDeck, shuffle } from '../src/deck.js';
 
 const card = (rank, suit) => ({ rank, suit });
 let passed = 0;
@@ -26,6 +27,17 @@ function act(table, action) {
   const p = table.players[table.currentActor];
   return table.applyAction(p.id, action);
 }
+
+console.log('deck:');
+t('shuffle returns a full unique deck each time', () => {
+  const d1 = shuffle(createDeck());
+  const d2 = shuffle(createDeck());
+  assert.equal(d1.length, 52);
+  assert.equal(d2.length, 52);
+  const keys1 = d1.map((c) => c.rank + c.suit);
+  assert.equal(new Set(keys1).size, 52, 'all 52 cards present exactly once');
+  assert.notDeepEqual(d1, d2, 'two shuffles should not be identical');
+});
 
 console.log('handEval:');
 t('royal flush is best 7-card hand', () => {

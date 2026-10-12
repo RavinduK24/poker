@@ -1,3 +1,5 @@
+import { randomInt } from 'node:crypto';
+
 // Card representation: { rank: 2..14, suit: 's'|'h'|'d'|'c' }
 // rank: 2..10, 11=J, 12=Q, 13=K, 14=A
 
@@ -20,11 +22,13 @@ export function createDeck() {
   return deck;
 }
 
-// Fisher-Yates shuffle (returns a new array).
+// Cryptographically secure Fisher-Yates shuffle. Every permutation is equally
+// likely (uniform distribution) — the correct model for a fair deal. We use a
+// CSPRNG rather than Math.random so the deal can't be predicted or biased.
 export function shuffle(deck) {
   const a = deck.slice();
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = randomInt(0, i + 1);
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
